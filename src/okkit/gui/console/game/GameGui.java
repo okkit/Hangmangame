@@ -48,6 +48,14 @@ public class GameGui implements Constants {
 	 * Game logic. NOT gui
 	 */
 	Game game;
+	
+	
+/**
+ * creates an instance of this class
+ */
+	public GameGui() {
+		super();
+	}
 
 	/**
 	 * Starts the gui an starts the game.
@@ -69,7 +77,7 @@ public class GameGui implements Constants {
 	 * Keeps the guessed word as letter array in the variable guessedWord;<br>
 	 * 
 	 * In depend on game status continues the guessing process:<br>
-	 * Displays the alphabeth of letters that can be selected. <br>
+	 * Displays the alphabet of letters that can be selected. <br>
 	 * Obtains the guessed letter using the guessGui. <br>
 	 * Updates the guessed word based on input letter using the instance of class
 	 * gamelogic.Game. <br>
@@ -81,12 +89,11 @@ public class GameGui implements Constants {
 	protected void play() {
 
 		startup();
-		int status = 0;
+		int status = Game.STATUS_RUN;
 		Character guess;
-		ArrayList<Character> guessedWord;
+		ArrayList<Character> guessedWord ;
 
-		// TODO Make values vor game status to constant
-		while (status == 0) {
+		while (status == Game.STATUS_RUN) {
 			showAlphabeth();
 			guess = guess();
 			guessedWord = game.nextRound(guess);
@@ -122,7 +129,7 @@ public class GameGui implements Constants {
 		} else if (mode == MODE_BOTxHUMAN) {
 			System.out.println("Not yet implemented s. TODO");
 			// TODO Implement the mode human vs. bot. For this, first implement a class
-			// Bot in the gamelogic is to be realised for this. The class Bot has to
+			// Bot in the game logic is to be realized for this. The class Bot has to
 			// implement the features of bot guessing and bot sinking.
 			startup();
 			return;
@@ -138,16 +145,15 @@ public class GameGui implements Constants {
 	 * @param status ...in depend of the game status
 	 */
 	private void showResult(int status) {
-
-		if (status == -1)
+		if (status ==Game.STATUS_LOST)
 			IO.io().writeError(COLOR_ERR);
-		else if (status == 1)
+		else if (status == Game.STATUS_WON)
 			IO.io().writeMessage(MSG_WON);
 	}
 
 	/**
 	 * Reads using the guessGui the letter entered by the guessing player. <br>
-	 * If the letter has alreday been selected, displays a message and calls
+	 * If the letter has already been selected, displays a message and calls
 	 * itself.
 	 * 
 	 * @return input letter
@@ -170,10 +176,10 @@ public class GameGui implements Constants {
 	private void showWord(ArrayList<Character> letters) {
 		IO.io().write(LABEL_YOUR_WORD, COLOR_LABEL);
 		for (Character let : letters) {
-			// TODO Source out the "-" as a constant
+
 			// TODO Explain: How can you tell that this line was written by a programmer and
 			// not by a software developer?
-			IO.io().write(" " + (let == null ? "-" : let), COLOR_MAIN);
+			IO.io().write(" " + (let == null ? HIDDEN_LETTER : let), COLOR_MAIN);
 		}
 		IO.io().nextLine(2);
 	}

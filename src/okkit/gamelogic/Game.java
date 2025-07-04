@@ -10,10 +10,24 @@ import java.util.ArrayList;
 public class Game {
 
 	/**
+	 * Game status if the guessing player has lost
+	 */
+	public static final int STATUS_LOST = -1;
+
+	/**
+	 * Game status if the guessing player has won
+	 */
+	public static final int STATUS_WON = 1;
+
+	/**
+	 * Game status if the game continues
+	 */
+	public static final int STATUS_RUN = 0;
+
+	/**
 	 * Maxim number of rounds; the same as the number of attempts.
 	 */
-	// TODO Explain: Why is this constant not in constant file?
-	private int ROUNDS = 3;
+	private final int ROUNDS = 3;
 
 	/**
 	 * Number of rounds; the same as number of attemts.
@@ -43,17 +57,20 @@ public class Game {
 		count = 0;
 		this.word = new Word(string);
 		selectedLetters = new ArrayList<Character>();
+		// the next 2 lines are bug fixing:
+		selectedLetters.add(string.trim().toLowerCase().charAt(0));
+		selectedLetters.add(string.charAt(string.length() - 1));
 	}
 
 	/**
 	 * Get a list of word letters.<br>
 	 * Letters that have already been guessed are added to the list as such.<br>
-	 * Not yuet guessed letters as null object.
+	 * Not yet guessed letters as null object.
 	 * 
 	 * @return The list of letters
 	 */
 	public ArrayList<Character> getHiddenWord() {
-		return word.adjust(null);
+		return word.adjust(selectedLetters);
 	}
 
 	/**
@@ -90,12 +107,12 @@ public class Game {
 	 * 
 	 */
 	public int getGameStatus(ArrayList<Character> guessedWord) {
-		// TODO Make each status as constant
+	
 		if (count == ROUNDS)
-			return -1;
-		else if (guessedWord.indexOf(null) > 0)
-			return 1;
-		return 0;
+			return STATUS_LOST;
+		else if (!guessedWord.contains(null))
+			return STATUS_WON;
+		return STATUS_RUN;
 	}
 
 	/**

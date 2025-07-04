@@ -29,14 +29,14 @@ public class Word {
 	 * Checks if the word contains the given letter (param).<br>
 	 * 
 	 * @param l The letter to be checked
-	 * @return true if the word contains the letter, othewise false.<br>
+	 * @return true if the word contains the letter, otherwise false.<br>
 	 *         Dazu der Witz: Ein Programmierer stellt sich jeden Abend ein volles
 	 *         und ein leeres Glas Wasser neben sein Bett. Warum? Weil: Das volle Glas
 	 *         hat er, falls er in der Nacht aufwacht und Durst hat. Und das leere
 	 *         Glas, falls er in der Nacht aufwacht und keinen Durst hat.
 	 */
 	public boolean hasLetter(char l) {
-		return string.trim().toLowerCase().contains(String.valueOf(l).toLowerCase());
+		return string.trim().toLowerCase().contains(String.valueOf(l));
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class Word {
 	 * The both string are compared by its lower case and without blank.
 	 * 
 	 * @param str String to compare with
-	 * @return true if the words are equals, othewise false
+	 * @return true if the words are equals, otherwise false
 	 */
 	public boolean isEquals(String str) {
 		return string.trim().toLowerCase().equals(str.trim().toLowerCase());
@@ -52,7 +52,7 @@ public class Word {
 
 	/**
 	 * Adjusts the representation of the hidden word by given letters.<br>
-	 * The initialy hidden word is being adjusted to the list passed as
+	 * The initially hidden word is being adjusted to the list passed as
 	 * parameter.<br>
 	 * Note: The adjustment takes place based on the entire(!) list of selected
 	 * letters and has to be done each time(!), when the list of selected letters
@@ -68,12 +68,13 @@ public class Word {
 		if (letters == null || letters.size() < 1) {
 			return getInitialHiding();
 		}
+		
 		char[] wordletters = string.toCharArray();
 		ArrayList<Character> retList = getInitialHiding();
 		int firstIndex = 0;
 		int lastIndex = string.length() - 1;
 
-		for (int i = firstIndex + 1; i < lastIndex - 1; i++) {
+		for (int i = firstIndex + 1; i < lastIndex; i++) {
 			for (int j = 0; j < letters.size(); j++) {
 				if (wordletters[i] == letters.get(j)) {
 					retList.set(i, wordletters[i]);

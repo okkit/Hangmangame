@@ -58,6 +58,10 @@ public interface Constants extends ConsoleColors {
 			'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'ä', 'ö', 'ü', 'ß' };
 
 	/**
+	 * Masked letter
+	 */
+	public static final String HIDDEN_LETTER = "-";
+	/**
 	 * Welcome message
 	 */
 	public static final String LABEL_WELCOME = "Welcome to hangman game";
@@ -92,7 +96,7 @@ public interface Constants extends ConsoleColors {
 	/**
 	 * Title to display for the mode MODE_BOTxHUMAN
 	 */
-	public static final String LABEL_MODE_BOTxHUMAN = "Bot vs. human: 		";
+	public static final String LABEL_MODE_BOTxHUMAN = "Bot versus human: 		";
 	/**
 	 * Error message to display if input is a wrong mode
 	 */
